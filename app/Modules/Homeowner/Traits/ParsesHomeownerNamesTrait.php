@@ -28,14 +28,17 @@ trait ParsesHomeownerNamesTrait
 
         return collect($parts)->map(function ($part) use ($lastName) {
             $part = trim($part);
+            $nameParts = explode(' ', $part);
+            $title = array_shift($nameParts);
 
-            if (!str_contains($part, $lastName)) {
-                return $this->parseSinglePerson($part . ' ' . $lastName);
+            if (empty($nameParts)) {
+                return $this->parseSinglePerson($title . ' ' . $lastName);
             }
 
             return $this->parseSinglePerson($part);
         });
     }
+
 
     private function parseSinglePerson(string $name): HomeownerData
     {

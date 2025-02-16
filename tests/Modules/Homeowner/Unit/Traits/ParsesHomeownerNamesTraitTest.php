@@ -70,15 +70,15 @@ class ParsesHomeownerNamesTraitTest extends TestCase
 
         $firstHomeowner = $results->first();
         $this->assertEquals('Mr', $firstHomeowner->title);
-        $this->assertNull($firstHomeowner->firstName);
+        $this->assertEquals('Tom', $firstHomeowner->firstName);
         $this->assertNull($firstHomeowner->initial);
-        $this->assertEquals('Smith', $firstHomeowner->lastName);
+        $this->assertEquals('Staff', $firstHomeowner->lastName);
 
         $secondHomeowner = $results->last();
-        $this->assertEquals('Mrs', $secondHomeowner->title);
-        $this->assertNull($secondHomeowner->firstName);
+        $this->assertEquals('Mr', $secondHomeowner->title);
+        $this->assertEquals('John', $secondHomeowner->firstName);
         $this->assertNull($secondHomeowner->initial);
-        $this->assertEquals('Smith', $secondHomeowner->lastName);
+        $this->assertEquals('Doe', $secondHomeowner->lastName);
     }
 
     #[Test]
