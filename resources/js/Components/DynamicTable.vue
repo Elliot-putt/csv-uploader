@@ -2,14 +2,9 @@
     <div class="card shadow-sm mt-4">
         <div class="card-header d-flex justify-content-between align-items-center py-3">
             <h5 class="mb-0"> {{ props.title }}</h5>
-            <button
-                class="btn btn-primary"
-                @click="handleExport"
-                :disabled="!data.length"
-            >
+            <a  class="btn btn-primary" :href="props.exportLink" :disabled="!data.length" download>
                 <i class="fas fa-download me-2"></i>
-                Export Data
-            </button>
+                Export Data</a>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
@@ -60,10 +55,10 @@ import { computed } from 'vue';
 interface Props {
     data: Record<string, any>[];
     title: Record<string, any>;
+    exportLink: Record<string, any>;
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(['export']);
 
 const headers = computed(() => {
     if (!props.data.length) return [];
@@ -75,10 +70,6 @@ const formatHeader = (header: string): string => {
         .split(/[_\s]|(?=[A-Z])/)
         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ');
-};
-
-const handleExport = () => {
-    emit('export', props.data);
 };
 </script>
 

@@ -49,7 +49,7 @@
                     <DynamicTable
                         v-if="homeowners.length"
                         :data="homeowners"
-                        @export="exportHomeowners"
+                        :export-link="'/homeowners/export'"
                         title="Homeowners"
                     />
                 </div>
@@ -62,7 +62,12 @@
 import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import DynamicTable from '@/Components/DynamicTable.vue';
+import { Homeowner } from '@/types/Modules/Homeowner';
+import {Inertia} from "@inertiajs/inertia";
 
+const props = defineProps<{
+    homeowners?: Homeowner[];
+}>();
 interface FormData {
     file: File | null;
 }
@@ -73,8 +78,6 @@ const form = useForm<FormData>({
     file: null,
 });
 
-const homeowners = ref([]);
-
 const submitForm = () => {
     form.post('/homeowners/upload', {
         onSuccess: (response) => {
@@ -84,9 +87,5 @@ const submitForm = () => {
         },
         preserveScroll: true,
     });
-};
-
-const exportHomeowners = (data) => {
-    console.log('Exporting data:', data);
 };
 </script>
